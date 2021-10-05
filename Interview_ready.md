@@ -88,3 +88,43 @@ int main() {
     return 0;
 }
 ```
+### 3. Smart Pointers - shared_ptr unique_ptr and weak_ptr: Check Advantages ###
+unique_ptr: It will provide the single or unique memory address access. It will hold only one raw pointer. If you transfer the ownership to another pointer then it will delete previous pointer ownership. If we are working on multithread environment, then we should be very carefull while implementing functionality by unique_ptr. 
+
+```c++
+#include<iostream>
+#include<thread>
+using namespace std;
+class DataHandler {
+    public:
+        DataHandler() { _reference_count++;cout<<"\n DataHandler Creation";}
+        DataHandler(string name):_name_of_pointer(name) {
+            _reference_count++;
+            cout<<"\n Data Handler creation with name";
+        }
+        ~DataHandler() { _reference_count--;cout<<"\n DataHandler Deletion:"<<_reference_count;}
+        void printDataHandler() { 
+            cout<<"\n DataHandler Printing values"<<_reference_count;
+            cout<<"\n Name: "<<_name_of_pointer;
+        }
+    private:
+        static int _reference_count;
+        std::string _name_of_pointer;
+};
+
+int DataHandler::_reference_count = 0;
+
+int main() {
+    std::unique_ptr<DataHandler> ptr1(new DataHandler());
+    ptr1->printDataHandler();
+    //calling the make_unique functions to take ownership
+    std::unique_ptr<DataHandler> ptr2=std::make_unique<DataHandler>();
+    ptr2->printDataHandler();
+
+    //assing the unique pointer each other
+    ptr1=std::move(ptr2); 
+
+    ptr1.reset();
+    return 0;
+}
+```
