@@ -89,7 +89,7 @@ int main() {
 }
 ```
 ### 3. Smart Pointers - shared_ptr unique_ptr and weak_ptr: Check Advantages ###
-unique_ptr: It will provide the single or unique memory address access. It will hold only one raw pointer. If you transfer the ownership to another pointer then it will delete previous pointer ownership. If we are working on multithread environment, then we should be very carefull while implementing functionality by unique_ptr. 
+**unique_ptr**: It will provide the single or unique memory address access. It will hold only one raw pointer. If you transfer the ownership to another pointer then it will delete previous pointer ownership. If we are working on multithread environment, then we should be very carefull while implementing functionality by unique_ptr. 
 
 ```c++
 #include<iostream>
@@ -125,6 +125,24 @@ int main() {
     ptr1=std::move(ptr2); 
 
     ptr1.reset();
+    return 0;
+}
+```
+**shared_ptr**: The shared_ptr is another choice for a smart pointer in C++, if you want to deal with multiple owners. This also maintains a reference count of all the pointers which point to the object.
+
+Similar to unique_ptr, the syntax is almost the same, except that you now return a shared pointer instead. You are also now allowed to pass multiple objects to the invocation, so that the shared_ptr points to all of them.
+
+To construct a new shared pointer, use the make_shared() function.
+```c++
+int main() {
+     //let check about the shared_ptr in c++
+    std::shared_ptr<DataHandler> sharedPtr1(new DataHandler("Shrikant"));
+    sharedPtr1->printDataHandler();
+    std::shared_ptr<DataHandler> sharedPtr2=std::make_shared<DataHandler>("Shruti");
+    sharedPtr2->printDataHandler();
+    sharedPtr1=sharedPtr2;
+    sharedPtr1->printDataHandler();
+    sharedPtr2.reset();
     return 0;
 }
 ```
