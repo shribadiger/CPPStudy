@@ -41,4 +41,17 @@ int main() {
     return 0;
 }
  ```
- Lamda is a simple way to define a functor. It will reduce the unwanted code from the functor. 
+ Lamda is a simple way to define a functor. It will reduce the unwanted code from the functor. For STL Algorithms, Lamda functions will helps to use as call back functions.  Checking out the example to use the Lamda functions
+ 
+ ```C++
+ //How to use the lamda fucntions in STL  Algorithes,
+int main() {
+    std::vector<int>  dataList={1,2,3,4};
+    std::transform(dataList.begin(), dataList.end(),dataList.begin(),[](const int value){
+        return value+1;
+    });
+    for(int i=0;i<dataList.size();i++){
+        cout<<"\t"<<dataList[i];
+    }
+}
+```
