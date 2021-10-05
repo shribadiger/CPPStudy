@@ -68,3 +68,23 @@ int main() {
     return 0;
 }
 ```
+### 2. Function Pointers and Usage ###
+it helps in interface programming. Creating the local callback pointer and pass to interface funciton. If we need a response or invoke back to callee. Then we can use the Function Pointers for such fucntionalities
+
+```c++
+#include<iostream>
+using namespace std;
+void printer(std::string input) {
+    cout<<"\n Callback printing the sting: "<<input;
+}
+
+int main() {
+    //creating the function pointer
+    void (*function_pointer)(std::string input)=&printer;
+
+    //calling the printer function from the funciton pointer
+    (*function_pointer)("Hello Callback");
+
+    return 0;
+}
+```
