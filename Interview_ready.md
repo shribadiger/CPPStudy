@@ -55,3 +55,16 @@ int main() {
     }
 }
 ```
+Passing the lamda functions as function pointer only in following cases
+```C++
+int value_checker(const int value, int(*getValue)()){
+    return getValue()+value;
+}
+int main() {
+    auto get_value =[]() {
+        return 1;
+    };
+    value_checker(3,get_value);
+    return 0;
+}
+```
