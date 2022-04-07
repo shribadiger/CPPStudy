@@ -29,3 +29,22 @@ Different devices are associated with different interrupts. Each interrupts are 
 
 Interrupt handler is also called as "Interrupt Service Routine" (ISR). In Linux, interrupt handlers are normal C functions, which match a specific prototype and thus enables the kernel to pass the handler information in a standard way. What differentiates interrupt handlers from other kernel functions is that the kernel invokes them in response to interrupts and that they run in a special context called interrupt context. This special context is occasionally called atomic context because code executing in this context is unable to block.
 
+**Registration of Interrupt and Handler**
+
+Devices are comes with device driver. If the device  uses the interrupt, then it will get register the interrupt handler. Drivers can register an interrupt handler and enable a given interrupt line for handling with the function request_irq(), which is declared in <linux/interrupt.h>:
+
+Devices are comes with device driver. If the device  uses the interrupt, then it will get register the interrupt handler. Drivers can register an interrupt handler and enable a given interrupt line for handling with the function request_irq(), which is declared in <linux/interrupt.h>
+
+``` C++
+int request_irq(unsigned int irq,
+                irq_handler_t handler,
+                unsigned long flags,
+                const char *name,
+                void *dev)
+ ```
+ 
+ 1st Argument: IRQ Number - Interrupt number to allocate.
+ 2nd Argument: Handler - Function pointer of the handler to be invoked.
+ 3rd Argument: Flag - Flag helps to identify the activities stage or criteria of interrupts.
+        IRQF_DISABLED - this flag instructs the kernel to disable all interrupts when executing this interrupt handler.
+        IRQF_SHARED - This flag specifies that the interrupt line can be shared among multiple interrupt handlers. Each handler registered on a given                            line must specify this flag; otherwise, only one handler can exist per line.
